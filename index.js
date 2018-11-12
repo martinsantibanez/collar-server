@@ -9,16 +9,10 @@ var io = require('socket.io')(server); //Bind socket.io to our express server.
 
 app.use(express.static('public')); //Send index.html page on GET /
 
-setInterval(function(){
-    console.log('emitting');
-    var d = new Date();
-    io.sockets.emit('DATA', {
-        x: d,
-        // x: Math.random(),
-        y: Math.random(),
-    });
-}, 300);
-
 io.on('connection', (socket) => {
-    console.log("Someone connected."); //show a log as a new client connects.
+    console.log("Someone connected. ", socket.id); //show a log as a new client connects.
+    //console.log(socket);
+    socket.on('messageType', function(msg){
+        console.log('message ', msg);
+    });
 })
