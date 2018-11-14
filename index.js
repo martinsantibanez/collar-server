@@ -11,8 +11,29 @@ app.use(express.static('public')); //Send index.html page on GET /
 
 io.on('connection', (socket) => {
     console.log("Someone connected. ", socket.id); //show a log as a new client connects.
-    //console.log(socket);
-    socket.on('messageType', function(msg){
-        console.log('message ', msg);
+    //console.log(socket);    
+    socket.on('TEMPERATURA', function(msg){
+        var d = new Date();
+        io.sockets.emit('TEMPERATURA', {
+            x: d,
+            y: msg,
+        });
+    });
+    socket.on('PULSO', function(msg){
+        var d = new Date();
+        io.sockets.emit('PULSO', {
+            x: d,
+            y: msg,
+        });
     });
 })
+
+// setInterval(function(){
+//     console.log('emitting');
+//     var d = new Date();
+//     io.sockets.emit('DATA', {
+//         x: d,
+//         // x: Math.random(),
+//         y: Math.random(),
+//     });
+// }, 300);
