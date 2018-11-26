@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var server = app.listen(4000, () => { //Start the server, listening on port 4000.
     console.log("Listening to requests on port 4000...");
-})
+});
 
 var io = require('socket.io')(server); //Bind socket.io to our express server.
 
@@ -11,7 +11,28 @@ app.use(express.static('public')); //Send index.html page on GET /
 
 io.on('connection', (socket) => {
     console.log("Someone connected. ", socket.id); //show a log as a new client connects.
-    //console.log(socket);    
+    //console.log(socket);
+
+    array[i]=socket.id;
+    i++;
+
+    rooms = Object.keys(socket.rooms);
+
+    socket.on('MSJ', function(msg){
+        socket.join(msg.ID);
+        console.log(msg.ID);
+        io.to(msg.ID).emit('MSJ', msg);
+        rooms = Object.keys(socket.rooms);
+
+    });
+
+    //Cuando se conecte un collar a room
+    socket.on('room', function (room) {
+        console.log(rooms);
+
+        socket.join(room);
+    });
+
     socket.on('Temperatura', function(msg){
         var d = new Date();
         io.sockets.emit('Temperatura', {
@@ -26,4 +47,4 @@ io.on('connection', (socket) => {
             y: msg,
         });
     });
-})
+});
