@@ -24,7 +24,16 @@ io.on('connection', (socket) => {
     socket.on('MSJ', function(msg){
         socket.join(msg.ID);
         console.log(msg.ID);
-        io.to(msg.ID).emit('MSJ', msg);
+        var d = new Date();
+        io.to(msg.ID).emit('Temperatura', {
+            x: d,
+            y: msg.TEMP,
+            });
+
+        io.to(msg.ID).emit('Pulso', {
+            x: d,
+            y: msg.PULSO,
+        });
         rooms = Object.keys(socket.rooms);
 
     });
