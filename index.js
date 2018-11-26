@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
 
     rooms = Object.keys(socket.rooms);
 
+    //mensaje recibido del collar
     socket.on('MSJ', function(msg){
         socket.join(msg.ID);
         console.log(msg.ID);
