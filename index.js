@@ -1,6 +1,8 @@
 var express = require('express');
 
 var app = express();
+var array = [];
+var i;
 var server = app.listen(4000, () => { //Start the server, listening on port 4000.
     console.log("Listening to requests on port 4000...");
 });
@@ -30,7 +32,6 @@ io.on('connection', (socket) => {
     //Cuando se conecte un collar a room
     socket.on('room', function (room) {
         console.log(rooms);
-
         socket.join(room);
     });
 
