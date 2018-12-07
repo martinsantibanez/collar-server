@@ -35,6 +35,9 @@ io.on('connection', (socket) => {
             y: msg.PULSO,
         });
         rooms = Object.keys(socket.rooms);
+        // rooms.forEach(element => {
+        //     socket.leave(element);
+        // });
 
     });
 
@@ -43,8 +46,11 @@ io.on('connection', (socket) => {
         console.log(rooms);
         socket.join(room);
     });
+    socket.on('salir', function(room){
+        socket.leave(room);
+    });
 
-    socket.on('Temperatura', function(msg){
+    /*socket.on('Temperatura', function(msg){
         var d = new Date();
         io.sockets.emit('Temperatura', {
             x: d,
@@ -57,5 +63,5 @@ io.on('connection', (socket) => {
             x: d,
             y: msg,
         });
-    });
+    });*/
 });
