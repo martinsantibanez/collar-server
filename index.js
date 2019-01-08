@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
         var d = new Date();
         io.to(msg.ID).emit('Temperatura', {
             x: d,
-            y: msg.TEMP,
+            y:  Math.floor(msg.TEMP),
             });
 
         io.to(msg.ID).emit('Pulso', {

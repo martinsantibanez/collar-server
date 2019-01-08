@@ -5,7 +5,7 @@ const socket = io('http://localhost:4000');
 setInterval(function(){
     var dataEmit = {
         PULSO: randomIntFromInterval(80, 120),
-        TEMP: randomIntFromInterval(25, 30)
+        TEMP: randomIntFromInterval(35, 42)
     }
     socket.emit('MSJ', dataEmit);
 }, 1000);
